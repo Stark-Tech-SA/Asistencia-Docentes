@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asistencia Docente (Python)</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <img id="logoPreview" class="logo" alt="Logo institucional" />
+        <div>
+          <h1 id="brandName">Mi Institución</h1>
+          <p id="brandSubtitle">Control de asistencia de docentes</p>
+        </div>
+      </div>
+      <div id="liveClock" class="clock"></div>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <h2>Personalización</h2>
+        <form id="brandingForm" class="form-grid">
+          <label>Nombre de institución <input id="institutionName" name="institution_name" type="text" /></label>
+          <label>Subtítulo <input id="institutionSubtitle" name="subtitle" type="text" /></label>
+          <label>Color primario <input id="primaryColor" name="primary_color" type="color" /></label>
+          <label>Color acento <input id="accentColor" name="accent_color" type="color" /></label>
+          <label>Logo (URL) <input id="logoInput" name="logo_url" type="url" placeholder="https://..." /></label>
+          <button type="submit">Guardar personalización</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Registrar docente</h2>
+        <form id="teacherForm" class="form-grid">
+          <label>Nombre completo <input id="teacherName" type="text" required /></label>
+          <label>Documento o código interno <input id="teacherDocument" type="text" required /></label>
+          <label>Área <input id="teacherArea" type="text" /></label>
+          <button type="submit">Crear docente</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Registro por escaneo</h2>
+        <form id="scanForm" class="scan-row">
+          <input id="scanCode" type="text" placeholder="Escanea o pega código del docente" required />
+          <button type="submit">Registrar</button>
+        </form>
+        <hr />
+        <h3>Escaneo con cámara (QR)</h3>
+        <div class="camera-actions">
+          <button id="startCameraBtn" type="button">Activar cámara</button>
+          <button id="stopCameraBtn" type="button" class="secondary">Detener cámara</button>
+        </div>
+        <video id="cameraPreview" class="camera-preview" playsinline muted></video>
+        <p id="cameraStatus" class="camera-status">Cámara inactiva.</p>
+      </section>
+
+      <section class="panel full">
+        <h2>Docentes</h2>
+        <div id="teachersList" class="cards"></div>
+      </section>
+
+      <section class="panel full">
+        <h2>Historial</h2>
+        <table>
+          <thead>
+            <tr><th>Fecha y hora</th><th>Docente</th><th>Tipo</th><th>Código</th></tr>
+          </thead>
+          <tbody id="attendanceTable"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <template id="teacherCardTemplate">
+      <article class="card">
+        <h3></h3>
+        <p class="meta doc"></p>
+        <p class="meta area"></p>
+        <div class="codes"><canvas class="qr"></canvas><svg class="barcode"></svg></div>
+        <p class="code"></p>
+        <div class="actions">
+          <button data-action="entry">Entrada</button>
+          <button data-action="exit" class="secondary">Salida</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
